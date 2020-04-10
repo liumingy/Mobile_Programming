@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="15dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="15dp">
+
+    <TextView
+        android:id="@+id/textViewTosTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:text="@string/tos_title"
+        android:textColor="#232323"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Tos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/tos"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:text="@string/tos"
+        android:textColor="#555555"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxConfirmTos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/agree_tos" />
+
+    <Button
+        android:id="@+id/buttonConfirmTos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_tos" />
+</LinearLayout>
