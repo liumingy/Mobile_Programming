@@ -1,3 +1,7 @@
+/* *
+ * @author huxiaofan
+ * */
+
 package com.emptinessboy.logindemo;
 
 import android.content.DialogInterface;
