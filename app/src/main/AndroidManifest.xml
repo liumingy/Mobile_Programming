@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Register"
-            android:label="用户注册" />
+            android:label="用户注册"/>
         <activity android:name=".MainActivity" android:theme="@style/FullPageTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

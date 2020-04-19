@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         int regCode;
     }
 
+    public final static UserPool USER_POOL = new UserPool();   //存放用户数据常量
+
     final regdiaLog regdialog = new regdiaLog();
 
     @Override
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //调用customDialog
-                        regdialog.regCode=0;//注册方式1
+                        regdialog.regCode=1;//注册方式1
                         regdialog.dialog.show();
                     }
                 });
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //调用customDialog
-                        regdialog.regCode=1;//注册方式2
+                        regdialog.regCode=2;//注册方式2
                         regdialog.dialog.show();
                     }
                 });
@@ -125,24 +127,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     int loginCheck(String u,String p){
-        String users,password;
-        users="hxf";password="123456";   //用户名密码
         if(u.isEmpty()){
             return 1;   //用户名没填
         }
         else if(p.isEmpty()){
             return 2;   //密码没填
         }
-        else if(users.equals(u)){
-            if(password.equals(p)){
-                return 0;    //匹配则登录成功
-            }
-            else{
-                return 3;   //密码错误
-            }
+        else if(USER_POOL.Login(u,p)){
+            return 0;    //匹配则登录成功
         }
         else{
-            return 4;   //用户名错误
+            return 3;   //用户名或密码错误
         }
     }
 
@@ -151,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         public void buttonConfirmTosClicked(boolean isRead) {
             if(isRead){
                 Intent reg = new Intent(MainActivity.this,Register.class);
+                reg.putExtra("mode",regdialog.regCode); //传递注册方式
                 startActivity(reg);
                 //Toast.makeText(MainActivity.this,"注册还没开放哦！",Toast.LENGTH_SHORT).show();
             }
