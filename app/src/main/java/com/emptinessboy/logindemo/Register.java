@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -97,11 +98,10 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+    }
 
-
-
-
-
-
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        HideKeyBroadUtils.hide(this,ev);
+        return super.dispatchTouchEvent(ev);
     }
 }
