@@ -5,6 +5,7 @@
 package com.emptinessboy.logindemo;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +22,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    public class regdiaLog{
+        customDialog dialog;
+        PopupWindow regWindow;
+        int regCode;
+    }
+
+    final regdiaLog regdialog = new regdiaLog();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +69,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 View regView = LayoutInflater.from(MainActivity.this).inflate(R.layout.popup_content,null,false);
-                PopupWindow regWindow = new PopupWindow(regView, LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-                regWindow.setTouchable(true);
-                regWindow.setAnimationStyle(R.style.pop_anim);
-                regWindow.showAtLocation(v, Gravity.BOTTOM,0, 0);
+                regdialog.regWindow = new PopupWindow(regView, LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+                regdialog.regWindow.setTouchable(true);
+                regdialog.regWindow.setAnimationStyle(R.style.pop_anim);
+                regdialog.regWindow.showAtLocation(v, Gravity.BOTTOM,0, 0);
                 //绑定popupWindow的视图对象
                 Button buttonUseEmail = regView.findViewById(R.id.buttonUseEmail);
+                regdialog.dialog  = new customDialog(MainActivity.this, new tosConfirm());
                 buttonUseEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //调用customDialog
-                        regTos();
+                        regdialog.regCode=0;//注册方式1
+                        regdialog.dialog.show();
                     }
                 });
                 Button buttonUseName = regView.findViewById(R.id.buttonUseName);
                 buttonUseName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        regTos();
+                        //调用customDialog
+                        regdialog.regCode=1;//注册方式2
+                        regdialog.dialog.show();
                     }
                 });
             }
@@ -133,17 +146,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void regTos(){
-        //调用customDialog
-        customDialog dialog = new customDialog(MainActivity.this, new tosConfirm());
-        dialog.show();
-    }
-
     public class tosConfirm implements customDialog.onCustomDialogListener{
         @Override
         public void buttonConfirmTosClicked(boolean isRead) {
             if(isRead){
-                Toast.makeText(MainActivity.this,"注册还没开放哦！",Toast.LENGTH_SHORT).show();
+                Intent reg = new Intent(MainActivity.this,Register.class);
+                startActivity(reg);
+                //Toast.makeText(MainActivity.this,"注册还没开放哦！",Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(MainActivity.this,"需要先同意协议才能注册哦！",Toast.LENGTH_SHORT).show();
@@ -151,5 +160,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        regdialog.dialog.dismiss();
+        regdialog.regWindow.dismiss();
+    }
 }
 

@@ -3,4 +3,7 @@
 <color name="colorPrimary">#505050</color>
 <color name="colorPrimaryDark">#303030</color>
 <color name="colorAccent">#FF9800</color>
+<color name="colorPrimaryNormal">#303030</color>
+<color name="colorPrimaryDarkNormal">#202020</color>
+<color name="colorAccentNormal">#FF9800</color>
 </resources>
